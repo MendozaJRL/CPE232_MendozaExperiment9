@@ -1,0 +1,11 @@
+---
+# tasks file for roles/prometheus
+
+- name: Execute install_Prometheus_Ubuntu.yml
+  ansible.builtin.include_tasks:
+    file: install_Prometheus_Ubuntu.yml
+
+- name: Execute install_Prometheus_CentOS.yml
+  ansible.builtin.include_tasks:
+    file: install_Prometheus_CentOS.yml
+
