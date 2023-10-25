@@ -1,11 +1,11 @@
 
-- name: Prometheus PATH directory
+- name: Initialize Prometheus Directory
   file:
     path: ~/prometheus
     state: directory
   when: ansible_distribution == "CentOS"
 
-- name: Creating directory for Prometheus files
+- name: Initialize Prometheus System Directory
   file:
     path:
       - /etc/prometheus
@@ -24,13 +24,13 @@
     group: root
   when: ansible_distribution == "CentOS"
 
-- name: Configuring Prometheus
+- name: Copy the Installed Prometheus Package to the Initialized Directory
   shell: |
     cd ~/prometheus/prometheus*
     cp -r . /usr/local/bin/prometheus
   when: ansible_distribution == "CentOS"
 
-- name: Prometheus config file duplicate
+- name: Initializing Prometheus to be used on the CentOs
   copy:
     src: roles/prometheus/files/install_Prometheus.service
     dest: /etc/systemd/system
@@ -39,14 +39,14 @@
     group: root
   when: ansible_distribution == "CentOS"
 
-- name: Prometheus Start/Enable Check
+- name: Enabling Prometheus Performance Tool
   service:
     name: install_Prometheus.service
     state: restarted
     enabled: true
   when: ansible_distribution == "CentOS"
 
-- name: httpd Start/Enable Check
+- name: Restaring HTTPD Service on CentOS
   service:
     name: httpd
     state: restarted
